@@ -5,7 +5,7 @@ import BookCover from './BookCover';
 function BookCard({book}) {
   return (
     <Link to={`/books/${book.id}`} className="book-card">
-        <BookCover src={book.coverImageUrl}/>
+        <BookCover src={book.coverImageUrl} alt={`${book.title} 표지`}/>
         <h3 className="book-card-title">{book.title}</h3>
         <p className="book-card-author">{book.author}</p>
     </Link>

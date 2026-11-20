@@ -1,5 +1,13 @@
 // 표지 이미지. 이미지가 없으면 책 아이콘 + "책 표지" 자리 표시
-function BookCover() {
+function BookCover({ src, alt = '책 표지' }) {
+  if (src) {
+    return (
+      <div className="book-cover">
+        <img src={src} alt={alt} />
+      </div>
+    )
+  }
+
   return (
     <div className="book-cover book-cover--empty" aria-label="표지 없음">
       <svg

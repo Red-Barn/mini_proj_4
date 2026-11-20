@@ -5,7 +5,7 @@
       "title": "별빛 아래의 서점",
       "author": "홍길동",
       "content": "밤에만 문을 여는 작은 서점. 책 사이에 남겨진 편지를 따라 잊고 있던 꿈을 찾아가는 이야기.",
-      "coverImageUrl": "",
+      "coverImageUrl": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNjAwIiB2aWV3Qm94PSIwIDAgNDAwIDYwMCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMWUzYThhIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjM2I4MmY2Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9InVybCgjZykiLz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTQiIGhlaWdodD0iNjAwIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMTUiLz48Y2lyY2xlIGN4PSIzMjAiIGN5PSI0NzAiIHI9IjEyMCIgZmlsbD0iI2ZkZTY4YSIgb3BhY2l0eT0iLjEyIi8+PGcgZm9udC1mYW1pbHk9IidOb3RvIFNhbnMgS1InLCdNYWxndW4gR290aGljJyxzYW5zLXNlcmlmIj48dGV4dCB4PSI0MCIgeT0iMTUwIiBmb250LXNpemU9IjM2IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjZmRlNjhhIj7rs4TruZsg7JWE656Y7J2YPC90ZXh0Pjx0ZXh0IHg9IjQwIiB5PSIxOTYiIGZvbnQtc2l6ZT0iMzYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZGU2OGEiPuyEnOygkDwvdGV4dD48dGV4dCB4PSI0MCIgeT0iNTQwIiBmb250LXNpemU9IjIwIiBmaWxsPSIjZmRlNjhhIiBvcGFjaXR5PSIuODUiPu2Zjeq4uOuPmTwvdGV4dD48L2c+PC9zdmc+",
       "createdAt": "2026-11-20T09:00:00.000Z",
       "updatedAt": "2026-11-20T09:00:00.000Z"
     },
@@ -14,7 +14,7 @@
       "title": "바다를 걷는 고양이",
       "author": "이바다",
       "content": "푸른 바닷가 마을의 고양이가 사라진 등대의 빛을 찾아 떠나는 작은 모험.",
-      "coverImageUrl": "",
+      "coverImageUrl": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNjAwIiB2aWV3Qm94PSIwIDAgNDAwIDYwMCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMGU3NDkwIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNjdlOGY5Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9InVybCgjZykiLz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTQiIGhlaWdodD0iNjAwIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMTUiLz48Y2lyY2xlIGN4PSIzMjAiIGN5PSI0NzAiIHI9IjEyMCIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iLjEyIi8+PGcgZm9udC1mYW1pbHk9IidOb3RvIFNhbnMgS1InLCdNYWxndW4gR290aGljJyxzYW5zLXNlcmlmIj48dGV4dCB4PSI0MCIgeT0iMTUwIiBmb250LXNpemU9IjM2IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjZmZmZmZmIj7rsJTri6Trpbwg6rG364qUPC90ZXh0Pjx0ZXh0IHg9IjQwIiB5PSIxOTYiIGZvbnQtc2l6ZT0iMzYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmZmZmYiPuqzoOyWkeydtDwvdGV4dD48dGV4dCB4PSI0MCIgeT0iNTQwIiBmb250LXNpemU9IjIwIiBmaWxsPSIjZmZmZmZmIiBvcGFjaXR5PSIuODUiPuydtOuwlOuLpDwvdGV4dD48L2c+PC9zdmc+",
       "createdAt": "2026-11-19T09:00:00.000Z",
       "updatedAt": "2026-11-20T09:00:00.000Z"
     },
@@ -23,7 +23,7 @@
       "title": "시간을 담은 우체통",
       "author": "박여름",
       "content": "과거의 나에게 보낸 편지가 돌아왔다. 오래된 우체통에서 시작되는 따뜻한 이야기.",
-      "coverImageUrl": "",
+      "coverImageUrl": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNjAwIiB2aWV3Qm94PSIwIDAgNDAwIDYwMCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjOWEzNDEyIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZmI5MjNjIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9InVybCgjZykiLz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTQiIGhlaWdodD0iNjAwIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMTUiLz48Y2lyY2xlIGN4PSIzMjAiIGN5PSI0NzAiIHI9IjEyMCIgZmlsbD0iI2ZmZjdlZCIgb3BhY2l0eT0iLjEyIi8+PGcgZm9udC1mYW1pbHk9IidOb3RvIFNhbnMgS1InLCdNYWxndW4gR290aGljJyxzYW5zLXNlcmlmIj48dGV4dCB4PSI0MCIgeT0iMTUwIiBmb250LXNpemU9IjM2IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjZmZmN2VkIj7si5zqsITsnYQg64u07J2APC90ZXh0Pjx0ZXh0IHg9IjQwIiB5PSIxOTYiIGZvbnQtc2l6ZT0iMzYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmY3ZWQiPuyasOyytO2GtTwvdGV4dD48dGV4dCB4PSI0MCIgeT0iNTQwIiBmb250LXNpemU9IjIwIiBmaWxsPSIjZmZmN2VkIiBvcGFjaXR5PSIuODUiPuuwleyXrOumhDwvdGV4dD48L2c+PC9zdmc+",
       "createdAt": "2026-11-18T09:00:00.000Z",
       "updatedAt": "2026-11-19T09:00:00.000Z"
     },
@@ -32,7 +32,7 @@
       "title": "숲의 가장 깊은 곳",
       "author": "김초록",
       "content": "지도에 없는 숲에서 만난 낯선 정원과 그곳을 지키는 사람들의 기록.",
-      "coverImageUrl": "",
+      "coverImageUrl": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNjAwIiB2aWV3Qm94PSIwIDAgNDAwIDYwMCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMTQ1MzJkIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNGFkZTgwIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9InVybCgjZykiLz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTQiIGhlaWdodD0iNjAwIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMTUiLz48Y2lyY2xlIGN4PSIzMjAiIGN5PSI0NzAiIHI9IjEyMCIgZmlsbD0iI2YwZmRmNCIgb3BhY2l0eT0iLjEyIi8+PGcgZm9udC1mYW1pbHk9IidOb3RvIFNhbnMgS1InLCdNYWxndW4gR290aGljJyxzYW5zLXNlcmlmIj48dGV4dCB4PSI0MCIgeT0iMTUwIiBmb250LXNpemU9IjM2IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjZjBmZGY0Ij7siLLsnZgg6rCA7J6lPC90ZXh0Pjx0ZXh0IHg9IjQwIiB5PSIxOTYiIGZvbnQtc2l6ZT0iMzYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmMGZkZjQiPuq5iuydgCDqs7M8L3RleHQ+PHRleHQgeD0iNDAiIHk9IjU0MCIgZm9udC1zaXplPSIyMCIgZmlsbD0iI2YwZmRmNCIgb3BhY2l0eT0iLjg1Ij7quYDstIjroZ08L3RleHQ+PC9nPjwvc3ZnPg==",
       "createdAt": "2026-11-17T09:00:00.000Z",
       "updatedAt": "2026-11-18T09:00:00.000Z"
     },
@@ -41,7 +41,7 @@
       "title": "5번테스트",
       "author": "김초록",
       "content": "지도에 없는 숲에서 만난 낯선 정원과 그곳을 지키는 사람들의 기록.",
-      "coverImageUrl": "",
+      "coverImageUrl": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNjAwIiB2aWV3Qm94PSIwIDAgNDAwIDYwMCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNGMxZDk1Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYTc4YmZhIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9InVybCgjZykiLz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTQiIGhlaWdodD0iNjAwIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIuMTUiLz48Y2lyY2xlIGN4PSIzMjAiIGN5PSI0NzAiIHI9IjEyMCIgZmlsbD0iI2Y1ZjNmZiIgb3BhY2l0eT0iLjEyIi8+PGcgZm9udC1mYW1pbHk9IidOb3RvIFNhbnMgS1InLCdNYWxndW4gR290aGljJyxzYW5zLXNlcmlmIj48dGV4dCB4PSI0MCIgeT0iMTUwIiBmb250LXNpemU9IjM2IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjZjVmM2ZmIj4167KI7YWM7Iqk7Yq4PC90ZXh0Pjx0ZXh0IHg9IjQwIiB5PSI1NDAiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9IiNmNWYzZmYiIG9wYWNpdHk9Ii44NSI+6rmA7LSI66GdPC90ZXh0PjwvZz48L3N2Zz4=",
       "createdAt": "2026-11-17T09:00:00.000Z",
       "updatedAt": "2026-11-18T09:00:00.000Z"
     }
