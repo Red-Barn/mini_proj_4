@@ -1,9 +1,5 @@
-
-const OPENAI_API_KEY = "~~~";
-
 const OPENAI_URL = "https://api.openai.com/v1/images/generations";
 
-// 제목과 내용으로 프롬프트 자동 생성
 function createCoverPrompt(title, content) {
   return `
 다음 도서의 정보를 분석하여 책의 내용과 분위기에 어울리는 표지 이미지를 생성해주세요.
@@ -27,8 +23,11 @@ function createCoverPrompt(title, content) {
 `;
 }
 
-// OpenAI 이미지 3개 생성
-export async function generateCover(title, content) {
+// apiKey를 매개변수로 받도록 변경
+export async function generateCover(title, content, apiKey) {
+  if (!apiKey?.trim()) {
+    throw new Error("OpenAI API 키를 입력해주세요.");
+  }
   if (!title?.trim() || !content?.trim()) {
     throw new Error("제목과 내용을 입력해주세요.");
   }
@@ -39,7 +38,7 @@ export async function generateCover(title, content) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${OPENAI_API_KEY}`
+      Authorization: `Bearer ${apiKey.trim()}`
     },
     body: JSON.stringify({
       model: "gpt-image-2",
@@ -54,14 +53,10 @@ export async function generateCover(title, content) {
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(
-      data.error?.message || "OpenAI 이미지 생성 실패"
-    );
+    throw new Error(data.error?.message || "OpenAI 이미지 생성 실패");
   }
 
-  const images = data.data.map((image) => {
-    return `data:image/png;base64,${image.b64_json}`;
-  });
+  const images = data.data.map((image) => `data:image/png;base64,${image.b64_json}`);
 
   if (images.length !== 3) {
     throw new Error("이미지 3개를 받지 못했습니다.");
@@ -70,20 +65,13 @@ export async function generateCover(title, content) {
   return images;
 }
 
-// 선택한 이미지를 json-server에 저장
+// 상세 페이지 등에서 bookId가 이미 있을 때 바로 저장하는 용도로 유지
 export async function saveCover(bookId, imageUrl) {
-  const response = await fetch(
-    `http://localhost:3000/books/${bookId}`,
-    {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        coverImageUrl: imageUrl
-      })
-    }
-  );
+  const response = await fetch(`http://localhost:3000/books/${bookId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ coverImageUrl: imageUrl })
+  });
 
   if (!response.ok) {
     throw new Error("표지 저장 실패");

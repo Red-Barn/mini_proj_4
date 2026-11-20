@@ -6,6 +6,7 @@ import BookListPage from './pages/BookListPage'
 import BookDetailPage from './pages/BookDetailPage'
 import BookCreatePage from './pages/BookCreatePage'
 import BookEditPage from './pages/BookEditPage'
+import CoverGeneratePage from './pages/CoverGeneratePage'
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState('')
@@ -23,7 +24,7 @@ export default function App() {
             />
             <Route
               path="/books/new"
-              element={<BookCreatePage />}
+              element={<BookCreatePage/>}
             />
             <Route
               path="/books/:id"
@@ -31,8 +32,9 @@ export default function App() {
             />
             <Route
               path="/books/:id/edit"
-              element={<BookEditPage />}
+              element={<BookEditPage/>}
             />
+            <Route path="/books/cover" element={<CoverGeneratePage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

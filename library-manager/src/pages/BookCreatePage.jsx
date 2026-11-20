@@ -1,12 +1,32 @@
 import { useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import './BookCreatePage.css'
 
 function BookCreatePage({ onCreated }) {
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [content, setContent] = useState('')
+  const location = useLocation()
+  const navigate = useNavigate()
+  const restored = location.state?.formData
+
+  const [title, setTitle] = useState(restored?.title ?? '')
+  const [author, setAuthor] = useState(restored?.author ?? '')
+  const [content, setContent] = useState(restored?.content ?? '')
+  const [coverImageUrl, setCoverImageUrl] = useState(restored?.coverImageUrl ?? '')
   const [error, setError] = useState('')
-  
+
+  function handleGoToCoverPage() {
+    if (!title.trim() || !content.trim()) {
+      setError('AI 표지를 생성하려면 제목과 내용을 먼저 입력해 주세요.')
+      return
+    }
+
+    setError('')
+    navigate('/books/cover', {
+      state: {
+        returnTo: '/books/new',
+        formData: { title, author, content, coverImageUrl }
+      }
+    })
+  }
 
   async function handleSubmit(event) {
     event.preventDefault()
@@ -17,6 +37,7 @@ function BookCreatePage({ onCreated }) {
     }
 
     setError('')
+    const now = new Date().toISOString()
 
     try {
       const response = await fetch('http://localhost:3000/books', {
@@ -26,13 +47,19 @@ function BookCreatePage({ onCreated }) {
           title: title.trim(),
           author: author.trim(),
           content: content.trim(),
-          //coverImageUrl,
+          coverImageUrl,
+          createdAt: now,
+          updatedAt: now
         })
       })
 
-      const createdBook = await response.json();
-      onCreated(createdBook);
+      if (!response.ok) {
+        throw new Error('도서 등록 실패')
+      }
 
+      const createdBook = await response.json()
+      onCreated?.(createdBook)
+      navigate('/')
     } catch {
       setError('도서를 등록하지 못했습니다. 서버 연결을 확인해 주세요.')
     }
@@ -48,7 +75,7 @@ function BookCreatePage({ onCreated }) {
           <input
             required
             value={title}
-            onChange={event => setTitle(event.target.value)}
+            onChange={(event) => setTitle(event.target.value)}
           />
         </label>
       </div>
@@ -59,7 +86,7 @@ function BookCreatePage({ onCreated }) {
           <input
             required
             value={author}
-            onChange={event => setAuthor(event.target.value)}
+            onChange={(event) => setAuthor(event.target.value)}
           />
         </label>
       </div>
@@ -70,9 +97,23 @@ function BookCreatePage({ onCreated }) {
           <textarea
             rows={4}
             value={content}
-            onChange={event => setContent(event.target.value)}
+            onChange={(event) => setContent(event.target.value)}
           />
         </label>
+      </div>
+
+      <div>
+        <p>도서 표지</p>
+        {coverImageUrl && (
+          <img
+            src={coverImageUrl}
+            alt="선택된 도서 표지 미리보기"
+            style={{ width: '140px', display: 'block', marginBottom: '8px' }}
+          />
+        )}
+        <button type="button" onClick={handleGoToCoverPage}>
+          {coverImageUrl ? 'AI 표지 다시 생성' : 'AI 표지 생성'}
+        </button>
       </div>
 
       {error && <p role="alert">{error}</p>}
@@ -84,4 +125,4 @@ function BookCreatePage({ onCreated }) {
   )
 }
 
-export default BookCreatePage;
+export default BookCreatePage
