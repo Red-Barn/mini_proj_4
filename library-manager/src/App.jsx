@@ -5,7 +5,7 @@ import Footer from './components/Footer'
 import BookListPage from './pages/BookListPage'
 import BookDetailPage from './pages/BookDetailPage'
 import BookCreatePage from './pages/BookCreatePage'
-// import BookEditPage from './pages/BookEditPage'
+import BookEditPage from './pages/BookEditPage'
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState('')
@@ -23,7 +23,7 @@ export default function App() {
             />
             <Route
               path="/books/new"
-              element={<BookCreatePage/>}
+              element={<BookCreatePage />}
             />
             <Route
               path="/books/:id"
@@ -31,7 +31,7 @@ export default function App() {
             />
             <Route
               path="/books/:id/edit"
-              element={<div>수정 페이지 임시 화면</div>}
+              element={<BookEditPage />}
             />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
