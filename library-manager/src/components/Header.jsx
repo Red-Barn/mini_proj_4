@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-
+import './Header.css'
 export default function Header({ searchQuery, onSearchChange }) {
   const navigate = useNavigate()
 
@@ -19,7 +19,6 @@ export default function Header({ searchQuery, onSearchChange }) {
       {/* 1. 홈 버튼 (목록 페이지로 이동) */}
       <Link to="/" className="brand" onClick={handleHomeClick}>
         <span className="brand-icon"></span> 도서관리 시스템
-        <span className="brand-sub">나만의 작은 도서관</span>
       </Link>
 
       {/* 2. 검색창 */}
@@ -38,7 +37,7 @@ export default function Header({ searchQuery, onSearchChange }) {
 
       {/* 3. 새 책 등록 버튼 (등록 페이지로 이동) */}
       <Link to="/books/new" className="btn btn-primary">
-        + 새 책 등록
+        책 등록
       </Link>
     </header>
   )
