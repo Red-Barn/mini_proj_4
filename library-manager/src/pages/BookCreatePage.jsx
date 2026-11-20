@@ -1,7 +1,7 @@
 import { useState } from 'react'
+import './BookCreatePage.css'
 
-
-function BookCreatePage({ onCreated}) {
+function BookCreatePage({ onCreated }) {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [content, setContent] = useState('')
@@ -39,7 +39,7 @@ function BookCreatePage({ onCreated}) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="book-create-form" onSubmit={handleSubmit}>
       <h1>새 도서 등록</h1>
 
       <div>
@@ -75,11 +75,10 @@ function BookCreatePage({ onCreated}) {
         </label>
       </div>
 
+      {error && <p role="alert">{error}</p>}
 
       <div>
-        <button type="submit" >
-          작성
-        </button>
+        <button type="submit">작성</button>
       </div>
     </form>
   )
