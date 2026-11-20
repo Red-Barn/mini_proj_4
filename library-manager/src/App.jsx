@@ -4,7 +4,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import BookListPage from './pages/BookListPage'
 import BookDetailPage from './pages/BookDetailPage'
-// import BookCreatePage from './pages/BookCreatePage'
+import BookCreatePage from './pages/BookCreatePage'
 // import BookEditPage from './pages/BookEditPage'
 
 export default function App() {
@@ -23,7 +23,7 @@ export default function App() {
             />
             <Route
               path="/books/new"
-              element={<div>새 책 등록 페이지 임시 화면</div>}
+              element={<BookCreatePage/>}
             />
             <Route
               path="/books/:id"
