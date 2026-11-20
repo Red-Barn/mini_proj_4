@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import BookListHeader from '../components/BookListHeader'
 import BookGrid from '../components/BookGrid'
 import Pagination from '../components/Pagination'
+import './BookListPage.css'
 
 function BookListPage() {
   const [books, setBooks] = useState([
@@ -45,11 +46,11 @@ function BookListPage() {
   ])
 
   return(
-    <>
+    <section className="book-list-page">
         <BookListHeader total={books.length}/>
         <BookGrid books={books}/>
         <Pagination />
-    </>
+    </section>
   )
 }
 export default BookListPage

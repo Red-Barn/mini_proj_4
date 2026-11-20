@@ -7,13 +7,13 @@ const SORT_OPTIONS = [
 // 정렬 드롭다운
 function SortSelect() {
   return (
-    <select aria-label="정렬 기준" defaultValue='title'>
+    <select className="sort-select" aria-label="정렬 기준" defaultValue='title'>
       {SORT_OPTIONS.map((option) => (
         <option key={option.value} value={option.value}>
           {option.label}
         </option>
       ))}
     </select>
-  );
+  )
 }
 export default SortSelect
