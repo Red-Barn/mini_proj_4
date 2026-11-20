@@ -36,7 +36,7 @@ export default function Header({ searchQuery, onSearchChange }) {
       </form>
 
       {/* 3. 새 책 등록 버튼 (등록 페이지로 이동) */}
-      <Link to="/books/new" className="btn btn-primary">
+      <Link to="/books/new" className="btn-create">
         책 등록
       </Link>
     </header>
