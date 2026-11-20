@@ -19,7 +19,7 @@ export default function App() {
           <Routes>
             <Route
               path="/"
-              element={<BookListPage />}
+              element={<BookListPage searchQuery={searchQuery} />}
             />
             <Route
               path="/books/new"
