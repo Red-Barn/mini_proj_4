@@ -8,8 +8,8 @@ function BookCreatePage({ onCreated }) {
   const [error, setError] = useState('')
   
 
-  async function handleSubmit(event) {
-    event.preventDefault()
+  async function handleSubmit(e) {
+    e.preDefault()
 
     if (!title.trim() || !author.trim()) {
       setError('제목과 저자를 입력해 주세요.')
@@ -17,6 +17,8 @@ function BookCreatePage({ onCreated }) {
     }
 
     setError('')
+
+    const now = new Date().toISOString()
 
     try {
       const response = await fetch('http://localhost:3000/books', {
@@ -27,8 +29,14 @@ function BookCreatePage({ onCreated }) {
           author: author.trim(),
           content: content.trim(),
           //coverImageUrl,
+          createdAt: now,
+          updatedAt: now,
         })
       })
+
+      if (!response.ok) {
+        throw new Error('도서 등록 요청에 실패했습니다.')
+      }
 
       const createdBook = await response.json();
       onCreated(createdBook);
@@ -48,7 +56,7 @@ function BookCreatePage({ onCreated }) {
           <input
             required
             value={title}
-            onChange={event => setTitle(event.target.value)}
+            onChange={e => setTitle(e.target.value)}
           />
         </label>
       </div>
@@ -59,7 +67,7 @@ function BookCreatePage({ onCreated }) {
           <input
             required
             value={author}
-            onChange={event => setAuthor(event.target.value)}
+            onChange={e => setAuthor(e.target.value)}
           />
         </label>
       </div>
@@ -70,12 +78,10 @@ function BookCreatePage({ onCreated }) {
           <textarea
             rows={4}
             value={content}
-            onChange={event => setContent(event.target.value)}
+            onChange={e => setContent(e.target.value)}
           />
         </label>
       </div>
-
-      {error && <p role="alert">{error}</p>}
 
       <div>
         <button type="submit">작성</button>

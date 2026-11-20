@@ -53,6 +53,7 @@ function BookEditPage() {
           title: title.trim(),
           author: author.trim(),
           content: content.trim(),
+          updatedAt: new Date().toISOString()
         })
       })
 
