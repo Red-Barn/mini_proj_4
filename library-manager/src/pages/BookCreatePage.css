@@ -1,0 +1,84 @@
+.book-create-form {
+  box-sizing: border-box;
+  display: grid;
+  gap: 20px;
+  width: calc(100% - 32px);
+  max-width: 560px;
+  margin: 40px auto;
+  padding: clamp(20px, 5vw, 36px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--bg);
+  color: var(--text);
+  text-align: left;
+}
+
+.book-create-form h1 {
+  margin: 0 0 4px;
+  color: var(--text-h);
+  font-size: clamp(26px, 5vw, 34px);
+}
+
+.book-create-form label {
+  display: grid;
+  gap: 8px;
+  color: var(--text-h);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.book-create-form input,
+.book-create-form textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text-h);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.book-create-form textarea {
+  resize: vertical;
+}
+
+.book-create-form input:focus-visible,
+.book-create-form textarea:focus-visible,
+.book-create-form button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.book-create-form > div:last-child {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.book-create-form button[type='submit'] {
+  padding: 10px 20px;
+  border: 1px solid var(--accent-border);
+  border-radius: 8px;
+  background: var(--accent-bg);
+  color: var(--accent);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+
+.book-create-form button[type='submit']:hover {
+  box-shadow: var(--shadow);
+}
+
+@media (max-width: 480px) {
+  .book-create-form {
+    margin-block: 24px;
+  }
+
+  .book-create-form button[type='submit'] {
+    width: 100%;
+  }
+}
