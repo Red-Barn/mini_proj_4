@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Header from './components/Header'
 // import Footer from './components/Footer'
 import BookListPage from './pages/BookListPage'
-// import BookDetailPage from './pages/BookDetailPage'
+import BookDetailPage from './pages/BookDetailPage'
 // import BookCreatePage from './pages/BookCreatePage'
 // import BookEditPage from './pages/BookEditPage'
 
@@ -27,7 +27,7 @@ export default function App() {
             />
             <Route
               path="/books/:id"
-              element={<div>상세 페이지 임시 화면</div>}
+              element={<BookDetailPage />}
             />
             <Route
               path="/books/:id/edit"
