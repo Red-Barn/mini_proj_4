@@ -9,7 +9,7 @@ function BookCreatePage({ onCreated }) {
   
 
   async function handleSubmit(e) {
-    e.preDefault()
+    e.preventDefault()
 
     if (!title.trim() || !author.trim()) {
       setError('제목과 저자를 입력해 주세요.')
