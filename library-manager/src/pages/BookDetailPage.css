@@ -1,0 +1,28 @@
+.book-detail-page { --bd-primary:#246652; --bd-ink:#243c38; --bd-muted:#6c7e76; --bd-line:#e0e6df; color:var(--bd-ink); padding:28px 0 48px; }
+.book-detail-page * { box-sizing:border-box; }
+.bd-back { display:inline-block; margin-bottom:32px; color:var(--bd-muted); font-size:13px; text-decoration:none; }
+.bd-back:hover { color:var(--bd-primary); text-decoration:underline; }
+.bd-layout { display:grid; grid-template-columns:minmax(220px,300px) minmax(0,1fr); gap:clamp(32px,6vw,72px); align-items:start; }
+.bd-cover-column { min-width:0; }
+.bd-cover { position:relative; aspect-ratio:2/3; overflow:hidden; border-radius:5px 12px 12px 5px; background:#e7eee6; box-shadow:4px 8px 20px #243c3815; }
+.bd-cover img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#e7eee6; }
+.bd-cover img[hidden] { display:none; }
+.bd-placeholder { height:100%; padding:30px 25px; display:flex; flex-direction:column; justify-content:space-between; background:linear-gradient(145deg,#315a4d,#233e38); color:#eef1df; border-left:6px solid #ffffff14; }
+.bd-placeholder strong { font-family:Batang,Georgia,serif; font-size:30px; line-height:1.6; overflow-wrap:anywhere; display:-webkit-box; -webkit-line-clamp:5; -webkit-box-orient:vertical; overflow:hidden; }
+.bd-placeholder span { font-size:11px; letter-spacing:.04em; }
+.bd-eyebrow { margin:0 0 12px; color:var(--bd-primary); font-size:12px; font-weight:700; }
+.book-detail-page h1 { margin:0; font-family:inherit; font-size:clamp(28px,3vw,42px); font-weight:750; letter-spacing:-1.2px; line-height:1.4; overflow-wrap:anywhere; }
+.bd-author { margin:18px 0 0; color:var(--bd-muted); font-size:15px; }
+.bd-dates { display:flex; flex-wrap:wrap; gap:12px 24px; border-bottom:1px solid var(--bd-line); padding:24px 0; margin:0; }
+.bd-dates>div { display:flex; flex-wrap:wrap; gap:8px; font-size:12px; }
+.bd-dates dt { color:var(--bd-muted); }.bd-dates dd { margin:0; }
+.bd-story { padding:28px 0; }.bd-story h2 { font-size:18px; margin:0 0 16px; }.bd-story p { white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.95; font-size:15px; margin:0; min-height:120px; }
+.bd-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+.bd-button { display:inline-flex; align-items:center; justify-content:center; border:1px solid transparent; border-radius:8px; min-height:44px; padding:10px 20px; font:inherit; font-size:13px; font-weight:700; text-decoration:none; cursor:pointer; }
+.bd-button:disabled { opacity:.5; cursor:wait; }.bd-primary { background:var(--bd-primary); color:white; }.bd-primary:hover:not(:disabled) { background:#194c3c; }.bd-secondary { background:white; border-color:var(--bd-line); color:var(--bd-ink); }.bd-danger { background:#fff1ed; border-color:#edcfc7; color:#a23f33; }.bd-danger:hover:not(:disabled) { background:#f9dfd7; }.bd-cover-action { width:100%; margin-top:20px; }
+.book-detail-page :is(a,button):focus-visible { outline:3px solid #b68330; outline-offset:4px; }
+.bd-state { background:#fff; border:1px solid var(--bd-line); border-radius:12px; text-align:center; padding:56px 20px; }.bd-state h1 { font-size:24px; }.bd-state p { color:var(--bd-muted); line-height:1.8; margin:16px 0; }.bd-state .bd-actions { justify-content:center; }
+.bd-spinner { display:inline-block; width:28px; height:28px; border:3px solid var(--bd-line); border-top-color:var(--bd-primary); border-radius:50%; margin-bottom:18px; animation:bd-spin .8s linear infinite; }@keyframes bd-spin { to { transform:rotate(360deg); } }
+.bd-dialog { width:min(440px,calc(100% - 32px)); border:1px solid var(--bd-line); border-radius:14px; padding:28px; color:var(--bd-ink); background:#fff; max-height:90vh; overflow:auto; }.bd-dialog::backdrop { background:#142e2666; }.bd-dialog h2 { margin:0 0 12px; font-size:21px; }.bd-dialog p { margin:0; color:var(--bd-muted); font-size:14px; line-height:1.8; }.bd-dialog .bd-actions { justify-content:flex-end; }.bd-dialog .bd-error { color:#a23f33; margin-top:16px; }
+@media(max-width:680px) { .bd-layout { grid-template-columns:1fr; gap:30px; }.bd-cover-column { width:min(260px,100%); margin:auto; }.book-detail-page { padding-top:20px; }.bd-back { margin-bottom:24px; }.bd-dates { flex-direction:column; gap:8px; }.bd-state h1 { font-size:21px; } }
+@media(prefers-reduced-motion:reduce) { .bd-spinner { animation:none; } }
