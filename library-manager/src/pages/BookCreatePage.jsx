@@ -1,10 +1,11 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 
 
-function BookCreatePage({ onCreated, onGenerateCover }) {
+function BookCreatePage({ onCreated}) {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [content, setContent] = useState('')
+  const [error, setError] = useState('')
   
 
   async function handleSubmit(event) {
@@ -16,8 +17,6 @@ function BookCreatePage({ onCreated, onGenerateCover }) {
     }
 
     setError('')
-
-    let createdBook
 
     try {
       const response = await fetch('http://localhost:3000/books', {
