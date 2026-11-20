@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Header from './components/Header'
 // import Footer from './components/Footer'
-// import BookListPage from './pages/BookListPage'
+import BookListPage from './pages/BookListPage'
 // import BookDetailPage from './pages/BookDetailPage'
 // import BookCreatePage from './pages/BookCreatePage'
 // import BookEditPage from './pages/BookEditPage'
@@ -19,7 +19,7 @@ export default function App() {
           <Routes>
             <Route
               path="/"
-              element={<div>목록 페이지 임시 화면 (검색어: {searchQuery})</div>}
+              element={<BookListPage />}
             />
             <Route
               path="/books/new"
