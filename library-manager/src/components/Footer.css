@@ -1,16 +1,19 @@
 .site-footer {
   margin-top: auto;
-  padding: 20px 24px;
+  padding: 18px 24px;
   background-color: #ffffff;
   border-top: 1px solid #e5e7eb;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
   color: #6b7280;
   font-size: 0.85rem;
-  line-height: 1.6;
 }
 
 .footer-title {
-  margin: 0 0 4px 0;
+  margin: 0;
   color: #374151;
 }
 
@@ -23,13 +26,4 @@
   margin: 0;
   font-size: 0.8rem;
   color: #9ca3af;
-}
-.library-app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.main-shell {
-  flex: 1;
 }
