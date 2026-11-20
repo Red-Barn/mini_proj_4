@@ -1,0 +1,100 @@
+.site-header {
+  display: grid;
+  grid-template-columns: 1fr minmax(240px, 480px) 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 24px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* 1. 좌측: 제목(홈 버튼) */
+.brand {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background-color: #f9fafb;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #111827;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.brand:hover {
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.brand-sub {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #6b7280;
+}
+
+/* 2. 중앙: 검색창 */
+.header-search {
+  justify-self: center;
+  width: 100%;
+  display: flex;
+  gap: 8px;
+}
+
+.header-search input {
+  flex: 1;
+  padding: 8px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.header-search input:focus {
+  border-color: #2563eb;
+}
+
+.header-search button {
+  padding: 8px 16px;
+  background-color: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.header-search button:hover {
+  background-color: #e5e7eb;
+}
+
+/* 3. 우측: 새 책 등록 버튼 */
+.btn-create {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  background-color: #2563eb;
+  border: 1px solid #2563eb;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-create:hover {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+}
