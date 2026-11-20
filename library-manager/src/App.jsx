@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Header from './components/Header'
-// import Footer from './components/Footer'
+import Footer from './components/Footer'
 import BookListPage from './pages/BookListPage'
 // import BookDetailPage from './pages/BookDetailPage'
 // import BookCreatePage from './pages/BookCreatePage'
@@ -37,7 +37,7 @@ export default function App() {
           </Routes>
         </main>
 
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </BrowserRouter>
   )
