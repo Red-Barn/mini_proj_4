@@ -45,6 +45,16 @@
   resize: vertical;
 }
 
+.book-create-form p[role='alert'] {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 14px;
+}
+
 .book-create-form input:focus-visible,
 .book-create-form textarea:focus-visible,
 .book-create-form button:focus-visible {
@@ -55,6 +65,18 @@
 .book-create-form > div:last-child {
   display: flex;
   justify-content: flex-end;
+  gap: 8px;
+}
+
+.book-create-form button[type='button'] {
+  padding: 10px 20px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text-h);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .book-create-form button[type='submit'] {

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './BookCreatePage.css'
 
-function BookCreatePage({ onCreated }) {
+function BookCreatePage() {
   const navigate = useNavigate()
 
   const [title, setTitle] = useState('')
@@ -46,7 +46,7 @@ function BookCreatePage({ onCreated }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           title: title.trim(),
-          author: author.trim(),  
+          author: author.trim(),
           content: content.trim(),
           createdAt: now,
           updatedAt: now
@@ -57,8 +57,6 @@ function BookCreatePage({ onCreated }) {
         throw new Error('도서 등록 요청에 실패했습니다.')
       }
 
-      const createdBook = await response.json()
-      onCreated?.(createdBook)
       navigate('/')
     } catch {
       setError('도서를 등록하지 못했습니다. 서버 연결을 확인해 주세요.')
@@ -108,6 +106,7 @@ function BookCreatePage({ onCreated }) {
       {error && <p role="alert">{error}</p>}
 
       <div>
+        <button type="button" onClick={() => navigate('/')}>취소</button>
         <button type="submit">작성</button>
       </div>
     </form>
