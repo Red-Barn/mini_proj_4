@@ -70,7 +70,10 @@ export async function saveCover(bookId, imageUrl) {
   const response = await fetch(`http://localhost:3000/books/${bookId}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ coverImageUrl: imageUrl })
+    body: JSON.stringify({
+      coverImageUrl: imageUrl,
+      updatedAt: new Date().toISOString()
+    })
   });
 
   if (!response.ok) {
