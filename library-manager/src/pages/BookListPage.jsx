@@ -176,18 +176,24 @@ function BookListPage() {
         onViewModeChange={setViewMode}
       />
 
-      {viewMode === 'grid' ? (
-        <BookGrid books={displayBooks} />
+      {displayTotal === 0 ? (
+        <p>검색 도서 없음</p>
       ) : (
-        <BookList books={displayBooks} />
+        <>
+          {viewMode === 'grid' ? (
+            <BookGrid books={displayBooks} />
+          ) : (
+            <BookList books={displayBooks} />
+          )}
+            
+          <Pagination
+            currentPage={safePage}
+            total={displayTotal}
+            itemsPerPage={itemsPerPage}
+            onPageChange={handlePageChange}
+          />
+        </>
       )}
-        
-      <Pagination
-        currentPage={safePage}
-        total={displayTotal}
-        itemsPerPage={itemsPerPage}
-        onPageChange={handlePageChange}
-      />
     </section>
   )
 }
