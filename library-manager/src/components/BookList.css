@@ -50,3 +50,8 @@
   text-align: center;
   color: #6b7280;
 }
+.book-list-fav-col,
+.book-list-fav-cell {
+  width: 72px;
+  text-align: center;
+}
