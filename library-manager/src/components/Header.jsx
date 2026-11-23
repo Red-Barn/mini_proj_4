@@ -1,17 +1,38 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import './Header.css'
-export default function Header({ searchQuery, onSearchChange }) {
+import { useState } from 'react'
+export default function Header() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const [text, setText] = useState(searchParams.get('q') ?? '')
+  const [message, setMessage] = useState('')
 
   // 검색창에서 엔터를 누르거나 검색 버튼을 눌렀을 때 목록 페이지로 이동
   function handleSearchSubmit(event) {
     event.preventDefault()
-    navigate('/')
+    const keyword = text.trim()
+
+    // 빈 검색 -> 전체 목록
+    if(keyword.length === 0){
+      setMessage('')
+      navigate('/')
+      return
+    }
+
+    // 두글자 미만 입력
+    if(keyword.length < 2){
+      setMessage('검색어는 2글자 이상 입력해주세요.')
+      return
+    }
+    setMessage('')
+    // URL 변경
+    navigate(`/?q=${encodeURIComponent(keyword)}`)
   }
 
   // 홈 버튼 클릭 시 검색어를 초기화하고 목록 페이지로 이동
   function handleHomeClick() {
-    onSearchChange('')
+    setText('')
+    setMessage('')
   }
 
   return (
@@ -25,14 +46,18 @@ export default function Header({ searchQuery, onSearchChange }) {
       <form className="header-search" onSubmit={handleSearchSubmit}>
         <input
           type="search"
-          placeholder="제목이나 내용으로 책을 찾아보세요"
-          value={searchQuery}
-          onChange={(event) => onSearchChange(event.target.value)}
+          placeholder="제목, 내용, 저자로 책을 찾아보세요"
+          value={text}
+          onChange={(event) => {
+            setText(event.target.value)
+            setMessage('')
+          }}
           aria-label="도서 검색"
         />
         <button type="submit" className="btn btn-secondary">
           검색
         </button>
+        {message && <p className="search-message">{message}</p>}
       </form>
 
       {/* 3. 새 책 등록 버튼 (등록 페이지로 이동) */}
