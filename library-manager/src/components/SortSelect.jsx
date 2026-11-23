@@ -2,6 +2,7 @@ export const SORT_OPTIONS = [
   { value: 'latest', label: '최신 등록순', field: 'createdAt', order: 'desc' },
   { value: 'updated', label: '최근 수정순', field: 'updatedAt', order: 'desc' },
   { value: 'title', label: '제목순', field: 'title', order: 'asc' },
+  { value: 'favorite', label: '즐겨찾기', field: 'favorite', order: 'desc' },
 ];
 
 // 정렬 드롭다운

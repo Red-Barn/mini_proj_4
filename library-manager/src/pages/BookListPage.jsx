@@ -8,12 +8,17 @@ import './BookListPage.css'
 import { useSearchParams } from 'react-router-dom'
 import { searchBooks } from '../services/bookApi'
 import { SORT_OPTIONS } from '../components/SortSelect'
+import { useFavorites } from '../components/useFavorites'
 
 const BASE_URL = 'http://localhost:3000/books'
 
-function compareBooks(a, b, { field, order }) {
-  const x = a[field]
-  const y = b[field]
+function compareBooks(a, b, {field, order}, isFavorite){
+  if (field === 'favorite') {
+    return String(b.createdAt || '').localeCompare(String(a.createdAt || ''), 'ko')
+  }
+
+  const x = String(a[field] ?? '')
+  const y = String(b[field] ?? '')
   const result = x.localeCompare(y, 'ko')
   return order === 'asc' ? result : -result
 }
@@ -27,6 +32,9 @@ function BookListPage() {
   const [itemsPerPage, setItemsPerPage] = useState(8)
   const [sortKey, setSortKey] = useState('title')
   const [viewMode, setViewMode] = useState('grid')
+  const [allBooksForFav, setAllBooksForFav] = useState([])
+  const { favorites, isFavorite } = useFavorites()
+  
 
   const sort = SORT_OPTIONS.find((option) => option.value === sortKey)
 
@@ -43,7 +51,19 @@ function BookListPage() {
     setError(null)
 
     async function loadBooks() {
-      try {
+      try{
+        // 즐겨찾기순은 localStorage 기반이므로 전체 목록을 받아 정렬 후 페이지네이션 적용
+        if (sortKey === 'favorite') {
+          const res = await fetch(`${BASE_URL}?_sort=createdAt&_order=desc`, {
+            signal: controller.signal
+          })
+          if (!res.ok) throw new Error(`책 요청 실패: ${res.status}`)
+
+          const data = await res.json()
+          setAllBooksForFav(data)
+          return
+        }
+
         const params = new URLSearchParams({
           _page: currentPage,
           _limit: itemsPerPage,
@@ -92,6 +112,18 @@ function BookListPage() {
     return () => controller.abort()
   }, [isSearching, keyword])
 
+  const favoriteFilteredBooks = allBooksForFav.filter((book) => isFavorite(book.id))
+  const safePage =
+    !isSearching && sortKey === 'favorite'
+      ? Math.min(currentPage, Math.max(1, Math.ceil(favoriteFilteredBooks.length / itemsPerPage)))
+      : currentPage
+
+  useEffect(() => {
+    if (safePage !== currentPage) {
+      setCurrentPage(safePage)
+    }
+  }, [safePage, currentPage])
+
   const handlePageChange = (page) => {
     setCurrentPage(page)
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -107,11 +139,27 @@ function BookListPage() {
     setCurrentPage(1)
   }
 
-  const sortResults = [...searchResults].sort((a, b) => compareBooks(a, b, sort))
+  // 검색 결과 필터링 및 정렬 
+  const filteredSearchResults =
+    sortKey === 'favorite'
+      ? searchResults.filter((book) => isFavorite(book.id))
+      : searchResults
+  const sortResults = [...filteredSearchResults].sort((a, b) => compareBooks(a, b, sort))
 
-  const start = (currentPage - 1) * itemsPerPage
-  const displayBooks = isSearching ? sortResults.slice(start, start + itemsPerPage) : books
-  const displayTotal = isSearching ? searchResults.length : total
+  // 화면 출력 데이터 계산
+  const start = (safePage - 1) * itemsPerPage
+
+  const displayBooks = isSearching
+    ? sortResults.slice(start, start + itemsPerPage)
+    : sortKey === 'favorite'
+      ? favoriteFilteredBooks.slice(start, start + itemsPerPage)
+      : books
+
+  const displayTotal = isSearching
+    ? sortResults.length
+    : sortKey === 'favorite'
+      ? favoriteFilteredBooks.length
+      : total
 
   if (loading) return <p>불러오는 중...</p>
   if (error) return <p>에러: {error}</p>
@@ -133,9 +181,9 @@ function BookListPage() {
       ) : (
         <BookList books={displayBooks} />
       )}
-
+        
       <Pagination
-        currentPage={currentPage}
+        currentPage={safePage}
         total={displayTotal}
         itemsPerPage={itemsPerPage}
         onPageChange={handlePageChange}
