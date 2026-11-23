@@ -76,6 +76,7 @@ function BookCreatePage({ onCreated }) {
         <label>
           내용
           <textarea
+            required
             rows={4}
             value={content}
             onChange={(e) => setContent(e.target.value)}
