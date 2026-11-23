@@ -6,6 +6,8 @@ function escapeRegex(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
+//
+
 // 파라미터 : 검색어, 컨트롤러
 async function searchBooks(keyword, signal) {
   // 특수문자 제거 후 URL로 변경
@@ -21,12 +23,10 @@ async function searchBooks(keyword, signal) {
 
   const results = await Promise.all(responses.map((res) => res.json()))
 
-  // results는 [[제목 결과], [내용 결과], [저자 결과]] 형태 → flat()으로 한 배열로
+  // 중복 제거를 위해 Map사용
   const map = new Map()
+  // results는 [[제목 결과], [내용 결과], [저자 결과]] 형태 → flat()으로 한 배열로
   results.flat().forEach((book) => map.set(book.id, book))
-
-  // id 순으로 정렬
-  // 이후 정렬 방법에 따라 바꿔야 함
-  return [...map.values()].sort((a, b) => Number(a.id) - Number(b.id))
+  return [...map.values()]
 }
 export {searchBooks}

@@ -6,8 +6,16 @@ import Pagination from '../components/Pagination'
 import './BookListPage.css'
 import { useSearchParams } from 'react-router-dom'
 import { searchBooks } from '../services/bookApi'
+import { SORT_OPTIONS } from '../components/SortSelect'
 
 const BASE_URL ='http://localhost:3000/books'
+
+function compareBooks(a, b, {field, order}){
+  const x = a[field]
+  const y = b[field]
+  const result = x.localeCompare(y, 'ko')
+  return order === 'asc' ? result : -result
+}
 
 function BookListPage() {
   const [books, setBooks] = useState([])
@@ -16,6 +24,10 @@ function BookListPage() {
   const [currentPage, setCurrentPage] = useState(1)
   const [total, setTotal] = useState(0)
   const [itemsPerPage, setItemsPerPage] = useState(8)
+  const [sortKey, setSortKey] = useState('title')
+
+  // 지금 정렬과 value가 같은 sort 딕셔너리
+  const sort = SORT_OPTIONS.find((option) => option.value === sortKey)
 
   // 검색 내용 및 글자 수 검사
   // URL을 직접 고쳐서 1글자를 넣어도 안전하게
@@ -36,7 +48,13 @@ function BookListPage() {
 
     async function loadBooks() {
       try{
-        const res = await fetch(`${BASE_URL}?_page=${currentPage}&_limit=${itemsPerPage}`, {
+        const params = new URLSearchParams({
+          _page: currentPage,
+          _limit: itemsPerPage,
+          _sort: sort.field,
+          _order: sort.order,
+        })
+        const res = await fetch(`${BASE_URL}?${params}`, {
           signal: controller.signal
         })
         if(!res.ok) throw new Error(`책 요청 실패: ${res.status}`)
@@ -57,8 +75,8 @@ function BookListPage() {
 
     // cleanup 함수 -> 이전 요청을 취소하고 항상 마지막 요청 결과만 반영
     return () => controller.abort()
-    // 의존성 배열: currentPage, itemsPerPage가 바뀌면 다시 실행
-  }, [isSearching, currentPage, itemsPerPage])
+    // 의존성 배열: isSearching, currentPage, itemsPerPage가 바뀌면 다시 실행
+  }, [isSearching, currentPage, itemsPerPage, sortKey])
 
   // 검색 Effect
   useEffect(() => {
@@ -94,9 +112,17 @@ function BookListPage() {
     setCurrentPage(1) // 개수가 바뀌면 1페이지로 이동
   }
 
+  const handleSortChange = (key) => {
+    setSortKey(key)
+    setCurrentPage(1) // 정렬이 바뀌면 1페이지로 이동
+  }
+
+  // 서버 출력 정렬
+  const sortResults = [...searchResults].sort((a, b) => compareBooks(a, b, sort))
+
   // Effect 종류에 따라 책 화면 구성 변경 및 Pagination 최대 값 변경
   const start = (currentPage - 1) * itemsPerPage
-  const displayBooks = isSearching ? searchResults.slice(start, start + itemsPerPage) : books
+  const displayBooks = isSearching ? sortResults.slice(start, start + itemsPerPage) : books
   const displayTotal = isSearching ? searchResults.length : total
 
   if(loading) return <p>불러오는 중...</p>
@@ -107,6 +133,8 @@ function BookListPage() {
           total={displayTotal}
           itemsPerPage={itemsPerPage}
           onItemsPerPageChange={handleItemsPerPageChange}
+          sortKey={sortKey}
+          onSortChange={handleSortChange}
           />
         <BookGrid books={displayBooks}/>
         <Pagination
