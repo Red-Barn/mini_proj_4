@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import FavoriteButton from '../components/FavoriteButton'
+import { useFavorites } from '../components/useFavorites'
 import './BookDetailPage.css'
 
 // 팀의 json-server 주소에 맞춰 .env의 VITE_API_BASE_URL을 설정합니다.
@@ -14,6 +16,7 @@ function formatDate(value) {
 export default function BookDetailPage({ setNotice }) {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { isFavorite, toggleFavorite } = useFavorites()
   const [resource, setResource] = useState({ status: 'loading', book: null, message: '' })
   const [retry, setRetry] = useState(0)
   const [deleting, setDeleting] = useState(false)
@@ -189,7 +192,16 @@ export default function BookDetailPage({ setNotice }) {
             </button>
           </aside>
 
-          <div className="bd-information">
+          <div className="bd-information" style={{ position: 'relative' }}>
+            {/* 우측 상단 즐겨찾기 별 버튼 */}
+            <div style={{ position: 'absolute', top: 0, right: 0, zIndex: 10 }}>
+              <FavoriteButton
+                isFavorite={isFavorite(book.id)}
+                onToggle={() => toggleFavorite(book.id)}
+                size="48"
+              />
+            </div>
+
             <p className="bd-eyebrow">도서 상세</p>
             <h1 id="detail-title">{book.title || '제목 없음'}</h1>
             <p className="bd-author">{book.author || '저자 정보 없음'}</p>
