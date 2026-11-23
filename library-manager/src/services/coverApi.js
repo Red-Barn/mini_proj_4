@@ -1,16 +1,16 @@
-
-const OPENAI_API_KEY = "~~~";
-
 const OPENAI_URL = "https://api.openai.com/v1/images/generations";
 
-// 제목과 내용으로 프롬프트 자동 생성
-function createCoverPrompt(title, content) {
+function createCoverPrompt(title, content, customPrompt = "") {
+  const extraInstruction = customPrompt.trim()
+    ? `\n추가 사용자 요청사항:\n${customPrompt.trim()}\n`
+    : "";
+
   return `
 다음 도서의 정보를 분석하여 책의 내용과 분위기에 어울리는 표지 이미지를 생성해주세요.
 
 도서 제목: ${title}
 도서 내용: ${content}
-
+${extraInstruction}
 다음 사항을 분석하여 이미지에 반영해주세요.
 - 작품의 장르와 전체적인 분위기
 - 이야기의 배경과 주요 장면
@@ -27,26 +27,33 @@ function createCoverPrompt(title, content) {
 `;
 }
 
-// OpenAI 이미지 3개 생성
-export async function generateCover(title, content) {
+export async function generateCover(
+  title,
+  content,
+  apiKey,
+  { quality = "medium", customPrompt = "" } = {}
+) {
+  if (!apiKey?.trim()) {
+    throw new Error("OpenAI API 키를 입력해주세요.");
+  }
   if (!title?.trim() || !content?.trim()) {
     throw new Error("제목과 내용을 입력해주세요.");
   }
 
-  const prompt = createCoverPrompt(title, content);
+  const prompt = createCoverPrompt(title, content, customPrompt);
 
   const response = await fetch(OPENAI_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${OPENAI_API_KEY}`
+      Authorization: `Bearer ${apiKey.trim()}`
     },
     body: JSON.stringify({
       model: "gpt-image-2",
       prompt: prompt,
       n: 3,
       size: "1024x1536",
-      quality: "medium",
+      quality: quality,
       output_format: "png"
     })
   });
@@ -54,36 +61,28 @@ export async function generateCover(title, content) {
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(
-      data.error?.message || "OpenAI 이미지 생성 실패"
-    );
+    throw new Error(data.error?.message || "OpenAI 이미지 생성 실패");
   }
 
-  const images = data.data.map((image) => {
-    return `data:image/png;base64,${image.b64_json}`;
-  });
+  const images = (data.data ?? [])
+    .filter((image) => image.b64_json)
+    .map((image) => `data:image/png;base64,${image.b64_json}`);
 
-  if (images.length !== 3) {
-    throw new Error("이미지 3개를 받지 못했습니다.");
+  if (images.length === 0) {
+    throw new Error("생성된 이미지를 받지 못했습니다.");
   }
 
   return images;
 }
-
-// 선택한 이미지를 json-server에 저장
 export async function saveCover(bookId, imageUrl) {
-  const response = await fetch(
-    `http://localhost:3000/books/${bookId}`,
-    {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        coverImageUrl: imageUrl
-      })
-    }
-  );
+  const response = await fetch(`http://localhost:3000/books/${bookId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      coverImageUrl: imageUrl,
+      updatedAt: new Date().toISOString()
+    })
+  });
 
   if (!response.ok) {
     throw new Error("표지 저장 실패");

@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import './BookCreatePage.css'
 
 function BookEditPage() {
   const { id } = useParams()
+  const navigate = useNavigate()
 
-  const [book, setBook] = useState(null)
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [content, setContent] = useState('')
@@ -22,12 +22,10 @@ function BookEditPage() {
         }
         const data = await response.json()
 
-        setBook(data)
         setTitle(data.title ?? '')
         setAuthor(data.author ?? '')
         setContent(data.content ?? '')
       } catch {
-        setBook(null)
         setError('도서 정보를 불러오지 못했습니다.')
       }
     }
@@ -38,14 +36,33 @@ function BookEditPage() {
   async function handleSubmit(event) {
     event.preventDefault()
 
-    if (!title.trim() || !author.trim()) {
-      setError('제목과 저자를 입력해 주세요.')
+    if (!title.trim() || !author.trim() || !content.trim()) {
+      setError('제목, 저자, 내용을 입력해 주세요.')
+      return
+    }
+
+    if (title.trim().length > 100 || author.trim().length > 50) {
+      setError('제목은 100자, 저자는 50자 이내로 입력해 주세요.')
       return
     }
 
     setError('')
 
     try {
+      const checkResponse = await fetch(
+        `http://localhost:3000/books?title=${encodeURIComponent(title.trim())}&content=${encodeURIComponent(content.trim())}`
+      )
+
+      if (!checkResponse.ok) {
+        throw new Error('중복 검사 요청에 실패했습니다.')
+      }
+
+      const sameBooks = await checkResponse.json()
+      if (sameBooks.some((book) => String(book.id) !== id)) {
+        setError('이미 등록된 도서입니다.')
+        return
+      }
+
       const response = await fetch(`http://localhost:3000/books/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
@@ -61,12 +78,7 @@ function BookEditPage() {
         throw new Error('도서 수정 실패')
       }
 
-      const updatedBook = await response.json()
-      setBook(updatedBook)
-      setTitle(updatedBook.title ?? '')
-      setAuthor(updatedBook.author ?? '')
-      setContent(updatedBook.content ?? '')
-      
+      navigate(`/books/${id}`)
     } catch {
       setError('도서를 수정하지 못했습니다.')
     }
@@ -81,8 +93,9 @@ function BookEditPage() {
           제목
           <input
             required
+            maxLength={100}
             value={title}
-            onChange={e => setTitle(e.target.value)}
+            onChange={(e) => setTitle(e.target.value)}
           />
         </label>
       </div>
@@ -92,8 +105,9 @@ function BookEditPage() {
           저자
           <input
             required
+            maxLength={50}
             value={author}
-            onChange={e => setAuthor(e.target.value)}
+            onChange={(e) => setAuthor(e.target.value)}
           />
         </label>
       </div>
@@ -102,9 +116,10 @@ function BookEditPage() {
         <label>
           내용
           <textarea
+            required
             rows={4}
             value={content}
-            onChange={e => setContent(e.target.value)}
+            onChange={(e) => setContent(e.target.value)}
           />
         </label>
       </div>
