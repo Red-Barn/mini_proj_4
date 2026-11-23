@@ -1,21 +1,3 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-
-
 ## 양태호 담당 — 2일차 상세 조회 및 삭제
 
 ### 실행
@@ -71,3 +53,42 @@ AI 생성·표지 영구 저장은 3일차 연동 범위로 별도 관리합니�
 - QA 서버가 실제 DELETE 전달을 차단했으며 운영 중인 로컬 DB를 수정하지 않았습니다.
 - HTTP 오류에 대한 UI 검증 결과입니다. 연결 끊김·타임아웃·모바일 검증은 별도입니다.
 - 두 항목 모두 기존 코드로 통과하여 기능 코드 수정은 하지 않았습니다.
+
+---
+
+## 김병헌 담당 — 공통 레이아웃(Header/Footer), AI 표지 생성 페이지, 목록형 보기
+
+### 사전 준비 (AI 표지 생성)
+- AI 표지 생성 화면에서 유효한 OpenAI API Key(`sk-...`)를 직접 입력해야 합니다.
+- 입력한 API 키는 `db.json`이나 `localStorage`에 저장하지 않고 요청 시 컴포넌트 상태에서만 사용합니다.
+
+### 구현 및 연동 명세
+| 영역 | 대상 파일 | 주요 기능 및 연동 내용 |
+|---|---|---|
+| 공통 레이아웃 | `Header.jsx`, `Footer.jsx`, `App.css` | 상단 헤더 및 하단 푸터 구성, 콘텐츠 길이가 짧을 때도 푸터가 하단에 고정되도록 Flex 레이아웃 적용 |
+| AI 표지 생성 UI | `CoverGeneratePage.jsx`, `CoverGeneratePage.css` | 팀원이 구현한 `coverApi.js`(`generateCover`, `saveCover`)를 호출해 표지 생성·선택·적용 흐름 구현 |
+| 목록형 보기 | `BookListPage.jsx`, `BookListHeader.jsx`, `ViewModeSelect.jsx`, `BookList.jsx`, `BookList.css` | `viewMode`(`grid` / `list`) 상태 기반 카드형·목록형 전환 및 텍스트 중심 테이블 뷰 구현 |
+| 목록형 즐겨찾기 | `BookList.jsx` | 기존 `FavoriteButton` 컴포넌트와 `useFavorites` 훅(`localStorage` 키 `library_favorites`)을 연동해 카드형/목록형 간 즐겨찾기 상태 동기화 |
+
+### 세부 동작 규칙
+- **AI 표지 생성 페이지 (`CoverGeneratePage.jsx`)**
+  - 팀원이 작성한 `coverApi.js`의 `generateCover`를 호출하며, 이미지 품질(`low` / `medium` / `high`) 선택과 추가 사용자 프롬프트 입력값을 옵션으로 전달합니다.
+  - 기존 표지가 있는 경우 신규 생성 후보와 함께 표시해 비교·선택할 수 있으며, 기존 표지를 유지할 때는 불필요한 `saveCover` 요청을 보내지 않습니다.
+  - 수정 화면(`bookId` 존재)에서 표지를 변경하면 `saveCover`로 서버(`PATCH /books/:id`)에 반영하고, 신규 등록 흐름에서는 선택한 이미지를 `location.state`로 돌려보냅니다.
+  - API 요청 실패(안전 정책 차단, 응답 누락 등) 시 에러 안내 문구를 화면에 표시하고, 생성·저장 중에는 버튼 중복 클릭을 방지합니다.
+- **목록형 보기 및 즐겨찾기 연동 (`BookList.jsx`, `BookListPage.jsx`)**
+  - `ViewModeSelect`를 제어 컴포넌트로 변경해 `grid`(카드형)와 `list`(목록형)를 전환합니다.
+  - 목록형에서는 표지 이미지 없이 즐겨찾기 버튼, 제목(상세 페이지 이동 링크), 저자, 등록일만 테이블 형태로 표시합니다.
+  - 페이지네이션과 `~개씩 보기` 설정은 카드형과 동일하게 유지합니다.
+  - 목록형에서 즐겨찾기 버튼을 클릭하면 `useFavorites`의 커스텀 이벤트(`favorites-updated`)를 통해 카드형 및 다른 화면과 상태가 즉시 동기화됩니다.
+
+### QA 범위 및 검증 결과 (2026-11-23)
+- [v] Header 및 Footer 렌더링, 콘텐츠가 적은 화면에서 Footer 하단 고정 확인.
+- [v] CoverGeneratePage에서 품질 옵션·추가 프롬프트 입력 후 coverApi.js 호출 및 후보 이미지 선택·적용 확인.
+- [v] 안전 정책 차단 등 API 오류 발생 시 오류 메시지 표시 확인.
+- [v] 카드형(grid) ↔ 목록형(list) 전환 시 현재 페이지 도서 목록 및 페이지네이션 유지 확인.
+- [v] 목록형에서 즐겨찾기 토글 후 카드형 전환 및 새로고침 시 상태 유지 확인.
+
+| 목록형 보기 페이지 | AI 표지 생성 페이지 |
+|---|---|
+| <img src="./images/BookList.png" alt="목록형페이지 스크린샷" width="400" /> | <img src="./images/CoverGenerate.png" alt="AI 생성 페이지 스크린샷" width="400" /> |
