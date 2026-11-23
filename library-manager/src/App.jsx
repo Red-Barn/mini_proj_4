@@ -10,6 +10,7 @@ import CoverGeneratePage from './pages/CoverGeneratePage'
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState('')
+  const [notice, setNotice] = useState('')
 
   return (
     <BrowserRouter>
@@ -17,6 +18,12 @@ export default function App() {
         <Header searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
         <main className="main-shell">
+          {notice && (
+            <div className="bd-notice" role="status">
+              <span>{notice}</span>
+              <button type="button" aria-label="알림 닫기" onClick={() => setNotice('')}>×</button>
+            </div>
+          )}
           <Routes>
             <Route
               path="/"
@@ -28,7 +35,7 @@ export default function App() {
             />
             <Route
               path="/books/:id"
-              element={<BookDetailPage />}
+              element={<BookDetailPage setNotice={setNotice} />}
             />
             <Route
               path="/books/:id/edit"
