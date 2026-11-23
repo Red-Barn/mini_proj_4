@@ -10,6 +10,7 @@ function BookEditPage() {
   const [author, setAuthor] = useState('')
   const [content, setContent] = useState('')
   const [error, setError] = useState('')
+  const [original, setOriginal] = useState({ title: '', author: '', content: '' })
 
   useEffect(() => {
     async function fetchBook() {
@@ -25,16 +26,21 @@ function BookEditPage() {
         setTitle(data.title ?? '')
         setAuthor(data.author ?? '')
         setContent(data.content ?? '')
+        setOriginal({
+          title: data.title ?? '',
+          author: data.author ?? '',
+          content: data.content ?? ''
+        })
       } catch {
-        setError('도서 정보를 불러오지 못했습니다.')
+        setError('도서 정보를 불러오지 못했습니다. 서버 연결을 확인해 주세요.')
       }
     }
 
     fetchBook()
   }, [id])
 
-  async function handleSubmit(event) {
-    event.preventDefault()
+  async function handleSubmit(e) {
+    e.preventDefault()
 
     if (!title.trim() || !author.trim() || !content.trim()) {
       setError('제목, 저자, 내용을 입력해 주세요.')
@@ -43,6 +49,15 @@ function BookEditPage() {
 
     if (title.trim().length > 100 || author.trim().length > 50) {
       setError('제목은 100자, 저자는 50자 이내로 입력해 주세요.')
+      return
+    }
+
+    if (
+      title.trim() === original.title.trim() &&
+      author.trim() === original.author.trim() &&
+      content.trim() === original.content.trim()
+    ) {
+      setError('변경된 내용이 없습니다.')
       return
     }
 
@@ -80,7 +95,7 @@ function BookEditPage() {
 
       navigate(`/books/${id}`)
     } catch {
-      setError('도서를 수정하지 못했습니다.')
+      setError('도서를 수정하지 못했습니다. 서버 연결을 확인해 주세요.')
     }
   }
 
@@ -126,7 +141,10 @@ function BookEditPage() {
 
       {error && <p role="alert">{error}</p>}
 
-      <button type="submit">수정하기</button>
+      <div>
+        <button type="button" onClick={() => navigate(`/books/${id}`)}>취소</button>
+        <button type="submit">수정하기</button>
+      </div>
     </form>
   )
 }
