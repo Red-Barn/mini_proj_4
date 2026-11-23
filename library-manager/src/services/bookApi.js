@@ -6,8 +6,6 @@ function escapeRegex(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
-//
-
 // 파라미터 : 검색어, 컨트롤러
 async function searchBooks(keyword, signal) {
   // 특수문자 제거 후 URL로 변경
