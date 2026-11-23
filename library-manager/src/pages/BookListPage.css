@@ -33,7 +33,15 @@
   color: #6b7280;
 }
 
-.sort-select {
+/* 우측 드롭다운 묶음: 정렬 / 보기 형식 / 보기 개수 */
+.book-list-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sort-select,
+.list-select {
   padding: 8px 14px;
   background-color: #ffffff;
   color: #374151;
@@ -44,7 +52,8 @@
   outline: none;
 }
 
-.sort-select:focus {
+.sort-select:focus,
+.list-select:focus {
   border-color: #2563eb;
 }
 
