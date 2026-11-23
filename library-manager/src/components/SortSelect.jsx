@@ -2,6 +2,7 @@ const SORT_OPTIONS = [
   { value: 'latest', label: '최신 등록순' },
   { value: 'updated', label: '최근 수정순' },
   { value: 'title', label: '제목순' },
+  { value: 'favorite', label: '즐겨찾기' }
 ];
 
 // 정렬 드롭다운
