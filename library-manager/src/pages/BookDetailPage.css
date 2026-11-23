@@ -26,3 +26,8 @@
 .bd-dialog { width:min(440px,calc(100% - 32px)); border:1px solid var(--bd-line); border-radius:14px; padding:28px; color:var(--bd-ink); background:#fff; max-height:90vh; overflow:auto; }.bd-dialog::backdrop { background:#142e2666; }.bd-dialog h2 { margin:0 0 12px; font-size:21px; }.bd-dialog p { margin:0; color:var(--bd-muted); font-size:14px; line-height:1.8; }.bd-dialog .bd-actions { justify-content:flex-end; }.bd-dialog .bd-error { color:#a23f33; margin-top:16px; }
 @media(max-width:680px) { .bd-layout { grid-template-columns:1fr; gap:30px; }.bd-cover-column { width:min(260px,100%); margin:auto; }.book-detail-page { padding-top:20px; }.bd-back { margin-bottom:24px; }.bd-dates { flex-direction:column; gap:8px; }.bd-state h1 { font-size:21px; } }
 @media(prefers-reduced-motion:reduce) { .bd-spinner { animation:none; } }
+
+/* 상세 삭제 후 목록에서도 유지되는 완료 안내 */
+.bd-notice { display:flex; align-items:center; justify-content:space-between; gap:16px; margin:18px 16px; padding:12px 16px; border:1px solid #cadfce; border-left:4px solid #246652; border-radius:8px; background:#eef6ef; color:#234737; font-size:14px; text-align:left; }
+.bd-notice button { flex:none; border:0; background:transparent; color:inherit; min-width:36px; min-height:36px; font-size:24px; cursor:pointer; }
+.bd-notice button:focus-visible { outline:3px solid #b68330; outline-offset:2px; }

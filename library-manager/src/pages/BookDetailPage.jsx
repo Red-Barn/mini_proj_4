@@ -35,6 +35,8 @@ export default function BookDetailPage({ setNotice }) {
           signal: controller.signal
         })
 
+        if (controller.signal.aborted) return
+
         if (response.status === 404) {
           setResource({
             status: 'not-found',
@@ -56,7 +58,7 @@ export default function BookDetailPage({ setNotice }) {
           setResource({ status: 'success', book, message: '' })
         }
       } catch (error) {
-        if (error.name !== 'AbortError') {
+        if (!controller.signal.aborted && error.name !== 'AbortError') {
           setResource({
             status: 'error',
             book: null,
@@ -92,7 +94,7 @@ export default function BookDetailPage({ setNotice }) {
 
       deleteDialog.current?.close()
       setNotice?.(response.status === 404 ? '이미 삭제된 도서입니다.' : '도서가 삭제되었습니다.')
-      navigate('/')
+      navigate('/', { replace: true })
     } catch (error) {
       if (error.name !== 'AbortError') {
         setDeleteError('삭제하지 못했습니다. 잠시 후 다시 시도해 주세요.')
