@@ -7,7 +7,7 @@ import BookDetailPage from './pages/BookDetailPage'
 import BookCreatePage from './pages/BookCreatePage'
 import BookEditPage from './pages/BookEditPage'
 import CoverGeneratePage from './pages/CoverGeneratePage'
-
+import './App.css'
 export default function App() {
   const [searchQuery, setSearchQuery] = useState('')
   const [notice, setNotice] = useState('')
