@@ -65,7 +65,7 @@ function BookEditPage() {
 
     setError('')
 
-    try {
+try {
       const response = await fetch(`http://localhost:3000/books/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
