@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useSearchParams } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import BookListPage from './pages/BookListPage'
@@ -8,14 +8,20 @@ import BookCreatePage from './pages/BookCreatePage'
 import BookEditPage from './pages/BookEditPage'
 import CoverGeneratePage from './pages/CoverGeneratePage'
 import './App.css'
+
+// URL 변경시 재 랜더링 -> key 변경 -> BookListPage 초기화 -> currentPage: 1
+function BookListRoute() {
+  const [sp] = useSearchParams()
+  return <BookListPage key={sp.get('q') ?? ''} />
+}
+
 export default function App() {
-  const [searchQuery, setSearchQuery] = useState('')
   const [notice, setNotice] = useState('')
 
   return (
     <BrowserRouter>
       <div className="library-app">
-        <Header searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+        <Header />
 
         <main className="main-shell">
           {notice && (
@@ -27,7 +33,7 @@ export default function App() {
           <Routes>
             <Route
               path="/"
-              element={<BookListPage searchQuery={searchQuery} />}
+              element={<BookListRoute />}
             />
             <Route
               path="/books/new"

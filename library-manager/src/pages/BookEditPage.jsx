@@ -36,14 +36,33 @@ function BookEditPage() {
   async function handleSubmit(event) {
     event.preventDefault()
 
-    if (!title.trim() || !author.trim()) {
-      setError('제목과 저자를 입력해 주세요.')
+    if (!title.trim() || !author.trim() || !content.trim()) {
+      setError('제목, 저자, 내용을 입력해 주세요.')
+      return
+    }
+
+    if (title.trim().length > 100 || author.trim().length > 50) {
+      setError('제목은 100자, 저자는 50자 이내로 입력해 주세요.')
       return
     }
 
     setError('')
 
     try {
+      const checkResponse = await fetch(
+        `http://localhost:3000/books?title=${encodeURIComponent(title.trim())}&content=${encodeURIComponent(content.trim())}`
+      )
+
+      if (!checkResponse.ok) {
+        throw new Error('중복 검사 요청에 실패했습니다.')
+      }
+
+      const sameBooks = await checkResponse.json()
+      if (sameBooks.some((book) => String(book.id) !== id)) {
+        setError('이미 등록된 도서입니다.')
+        return
+      }
+
       const response = await fetch(`http://localhost:3000/books/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
@@ -74,6 +93,7 @@ function BookEditPage() {
           제목
           <input
             required
+            maxLength={100}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -85,6 +105,7 @@ function BookEditPage() {
           저자
           <input
             required
+            maxLength={50}
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
           />
@@ -95,6 +116,7 @@ function BookEditPage() {
         <label>
           내용
           <textarea
+            required
             rows={4}
             value={content}
             onChange={(e) => setContent(e.target.value)}
