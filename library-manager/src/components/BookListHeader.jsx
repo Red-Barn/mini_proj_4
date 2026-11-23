@@ -3,21 +3,31 @@ import ViewModeSelect from './ViewModeSelect';
 import PageSizeSelect from './PageSizeSelect';
 
 // "전체 도서 총 N개" + 정렬 / 보기 형식 / 보기 개수 드롭다운
-function BookListHeader({total, itemsPerPage, onItemsPerPageChange, sortKey, onSortChange}) {
+function BookListHeader({
+  total,
+  itemsPerPage,
+  onItemsPerPageChange,
+  sortKey,
+  onSortChange,
+  viewMode,
+  onViewModeChange,
+}) {
   return (
     <div className="book-list-header">
-      <h2 className="book-list-title">전체 도서 
+      <h2 className="book-list-title">
+        전체 도서
         <span className="book-list-count">총 {total}개</span>
       </h2>
       <div className="book-list-controls">
-        <SortSelect value={sortKey} onChange={onSortChange}/>
-        <ViewModeSelect />
-        <PageSizeSelect 
+        <SortSelect value={sortKey} onChange={onSortChange} />
+        <ViewModeSelect value={viewMode} onChange={onViewModeChange} />
+        <PageSizeSelect
           value={itemsPerPage}
           onChange={onItemsPerPageChange}
         />
       </div>
     </div>
-  )
+  );
 }
-export default BookListHeader
+
+export default BookListHeader;
