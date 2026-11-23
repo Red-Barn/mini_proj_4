@@ -25,13 +25,13 @@
   color: #111827;
 }
 
-/* API 키 입력 폼 */
+/* API 키, 품질, 추가 프롬프트 입력 폼 */
 .cover-generate-page form {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
-  padding: 16px;
+  gap: 12px;
+  padding: 18px;
   margin-bottom: 20px;
   background-color: #f9fafb;
   border: 1px solid #e5e7eb;
@@ -44,24 +44,52 @@
   color: #374151;
 }
 
-.cover-generate-page form input[type='password'] {
-  flex: 1;
-  min-width: 220px;
+.cover-generate-page form input[type='password'],
+.cover-generate-page form select,
+.cover-generate-page form textarea {
   padding: 10px 12px;
   font-size: 0.9rem;
+  font-family: inherit;
   color: #111827;
   background-color: #ffffff;
   border: 1px solid #d1d5db;
   border-radius: 6px;
+  box-sizing: border-box;
 }
 
-.cover-generate-page form input[type='password']:focus {
+.cover-generate-page form input[type='password'] {
+  flex: 1;
+  min-width: 200px;
+}
+
+.cover-generate-page form select {
+  min-width: 170px;
+  cursor: pointer;
+}
+
+.cover-generate-page form textarea {
+  width: 100%;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.cover-generate-page form input[type='password']:focus,
+.cover-generate-page form select:focus,
+.cover-generate-page form textarea:focus {
   outline: none;
   border-color: #2563eb;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
+.cover-generate-page form select:disabled,
+.cover-generate-page form textarea:disabled {
+  background-color: #f3f4f6;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
 .cover-generate-page form button[type='submit'] {
+  margin-left: auto;
   padding: 10px 18px;
   font-size: 0.9rem;
   font-weight: 600;
@@ -171,6 +199,12 @@
   .cover-generate-page {
     margin: 16px;
     padding: 20px 16px;
+  }
+
+  .cover-generate-page form select,
+  .cover-generate-page form button[type='submit'] {
+    width: 100%;
+    margin-left: 0;
   }
 
   .cover-candidates {

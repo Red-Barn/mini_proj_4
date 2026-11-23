@@ -1,12 +1,16 @@
 const OPENAI_URL = "https://api.openai.com/v1/images/generations";
 
-function createCoverPrompt(title, content) {
+function createCoverPrompt(title, content, customPrompt = "") {
+  const extraInstruction = customPrompt.trim()
+    ? `\n추가 사용자 요청사항:\n${customPrompt.trim()}\n`
+    : "";
+
   return `
 다음 도서의 정보를 분석하여 책의 내용과 분위기에 어울리는 표지 이미지를 생성해주세요.
 
 도서 제목: ${title}
 도서 내용: ${content}
-
+${extraInstruction}
 다음 사항을 분석하여 이미지에 반영해주세요.
 - 작품의 장르와 전체적인 분위기
 - 이야기의 배경과 주요 장면
@@ -23,8 +27,12 @@ function createCoverPrompt(title, content) {
 `;
 }
 
-// apiKey를 매개변수로 받도록 변경
-export async function generateCover(title, content, apiKey) {
+export async function generateCover(
+  title,
+  content,
+  apiKey,
+  { quality = "medium", customPrompt = "" } = {}
+) {
   if (!apiKey?.trim()) {
     throw new Error("OpenAI API 키를 입력해주세요.");
   }
@@ -32,7 +40,7 @@ export async function generateCover(title, content, apiKey) {
     throw new Error("제목과 내용을 입력해주세요.");
   }
 
-  const prompt = createCoverPrompt(title, content);
+  const prompt = createCoverPrompt(title, content, customPrompt);
 
   const response = await fetch(OPENAI_URL, {
     method: "POST",
@@ -45,7 +53,7 @@ export async function generateCover(title, content, apiKey) {
       prompt: prompt,
       n: 3,
       size: "1024x1536",
-      quality: "medium",
+      quality: quality,
       output_format: "png"
     })
   });
@@ -56,16 +64,16 @@ export async function generateCover(title, content, apiKey) {
     throw new Error(data.error?.message || "OpenAI 이미지 생성 실패");
   }
 
-  const images = data.data.map((image) => `data:image/png;base64,${image.b64_json}`);
+  const images = (data.data ?? [])
+    .filter((image) => image.b64_json)
+    .map((image) => `data:image/png;base64,${image.b64_json}`);
 
-  if (images.length !== 3) {
-    throw new Error("이미지 3개를 받지 못했습니다.");
+  if (images.length === 0) {
+    throw new Error("생성된 이미지를 받지 못했습니다.");
   }
 
   return images;
 }
-
-// 상세 페이지 등에서 bookId가 이미 있을 때 바로 저장하는 용도로 유지
 export async function saveCover(bookId, imageUrl) {
   const response = await fetch(`http://localhost:3000/books/${bookId}`, {
     method: "PATCH",

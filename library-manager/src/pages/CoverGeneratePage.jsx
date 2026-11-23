@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { generateCover, saveCover } from '../services/coverApi'
 import './CoverGeneratePage.css'
+
 export default function CoverGeneratePage() {
   const location = useLocation()
   const navigate = useNavigate()
@@ -18,6 +19,8 @@ export default function CoverGeneratePage() {
   const existingCover = formData.coverImageUrl || ''
 
   const [apiKey, setApiKey] = useState('')
+  const [quality, setQuality] = useState('medium')
+  const [customPrompt, setCustomPrompt] = useState('')
   const [images, setImages] = useState([])
   const [selectedImage, setSelectedImage] = useState(existingCover)
   const [loading, setLoading] = useState(false)
@@ -32,7 +35,10 @@ export default function CoverGeneratePage() {
     setSelectedImage(existingCover)
 
     try {
-      const result = await generateCover(formData.title, formData.content, apiKey)
+      const result = await generateCover(formData.title, formData.content, apiKey, {
+        quality,
+        customPrompt
+      })
       setImages(result)
     } catch (err) {
       setError(err.message || '이미지 생성 중 오류가 발생했습니다.')
@@ -44,7 +50,6 @@ export default function CoverGeneratePage() {
   async function handleApply() {
     if (!selectedImage) return
 
-    // 상세 페이지에서 진입했고, 기존 표지와 다른 이미지를 선택한 경우 DB에 저장
     if (bookId != null && selectedImage !== existingCover) {
       setSaving(true)
       setError('')
@@ -59,7 +64,6 @@ export default function CoverGeneratePage() {
       return
     }
 
-    // 기존 표지를 그대로 유지했거나 bookId가 없는 경우 그대로 복귀
     navigate(returnTo, {
       state: {
         formData: {
@@ -86,6 +90,32 @@ export default function CoverGeneratePage() {
           autoComplete="off"
           required
         />
+
+        <label htmlFor="cover-quality">이미지 품질</label>
+        <select
+          id="cover-quality"
+          value={quality}
+          onChange={(e) => setQuality(e.target.value)}
+          disabled={loading || saving}
+        >
+          <option value="low">낮음 (빠름 / 저비용)</option>
+          <option value="medium">보통 (기본값)</option>
+          <option value="high">높음 (느림 / 고비용)</option>
+        </select>
+
+        <label htmlFor="custom-prompt" style={{ width: '100%' }}>
+          추가 프롬프트 (선택)
+        </label>
+        <textarea
+          id="custom-prompt"
+          rows={3}
+          placeholder="예: 따뜻한 수채화 화풍, 새벽녘 숲속 분위기, 미니멀한 구도"
+          value={customPrompt}
+          onChange={(e) => setCustomPrompt(e.target.value)}
+          disabled={loading || saving}
+          style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #d1d5db' }}
+        />
+
         <button type="submit" disabled={loading || saving}>
           {loading ? '표지 생성 중...' : '표지 3장 생성하기'}
         </button>
@@ -94,17 +124,13 @@ export default function CoverGeneratePage() {
       {error && <p role="alert">{error}</p>}
 
       {(existingCover || images.length > 0) && (
-        <div
-          className="cover-candidates"
-          style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', margin: '16px 0' }}
-        >
+        <div className="cover-candidates">
           {existingCover && (
             <button
               type="button"
               onClick={() => setSelectedImage(existingCover)}
               style={{
-                border: selectedImage === existingCover ? '3px solid #2563eb' : '1px solid #d1d5db',
-                padding: '6px'
+                border: selectedImage === existingCover ? '3px solid #2563eb' : '1px solid #d1d5db'
               }}
             >
               <div style={{ marginBottom: '4px', fontSize: '0.8rem' }}>기존 표지</div>
@@ -118,8 +144,7 @@ export default function CoverGeneratePage() {
               type="button"
               onClick={() => setSelectedImage(imgUrl)}
               style={{
-                border: selectedImage === imgUrl ? '3px solid #2563eb' : '1px solid #d1d5db',
-                padding: '6px'
+                border: selectedImage === imgUrl ? '3px solid #2563eb' : '1px solid #d1d5db'
               }}
             >
               <div style={{ marginBottom: '4px', fontSize: '0.8rem' }}>신규 후보 {index + 1}</div>
