@@ -7,6 +7,17 @@ React(Vite)로 화면을 만들고, json-server를 가짜 REST API 서버로 사
 
 ---
 
+### 실행
+`library-manager` 폴더에서 터미널 두 개를 열어 각각 실행합니다.
+
+```powershell
+npx.cmd json-server --watch db.json --port 3000
+```
+
+```powershell
+npm.cmd run dev
+```
+
 ## 기능 및 API
 
 - **Base URL**: `http://localhost:3000` (json-server)
@@ -351,3 +362,13 @@ mini_proj_4/
 
 - json-server는 `db.json` 파일을 직접 수정하므로, 등록·수정·삭제한 내용이 파일에 바로 반영됩니다.
 - 담당자별 구현 내용과 QA 기록은 [`library-manager/README.md`](library-manager/README.md)에 있습니다.
+
+
+## 주요화면 스크린샷
+| 목록형 보기 페이지 | AI 표지 생성 페이지 |
+|---|---|
+| <img src="./images/BookList.png" alt="목록형페이지 스크린샷" width="400" /> | <img src="./images/CoverGenerate.png" alt="AI 생성 페이지 스크린샷" width="400" /> |
+
+| 도서 등록 페이지 | 도서 수정 페이지 |
+|---|---|
+| <img src="./images/BookCreate.png" alt="도서 등록 페이지 스크린샷" width="400" /> | <img src="./images/BookEdit.png" alt="도서 수정 페이지 스크린샷" width="400" /> |
