@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import FavoriteButton from '../components/FavoriteButton'
-import { useFavorites } from '../components/useFavorites'
-import './BookDetailPage.css'
+import { useFavorites } from '../services/useFavorites'
+import '../css/BookDetailPage.css'
 
 // 팀의 json-server 주소에 맞춰 .env의 VITE_API_BASE_URL을 설정합니다.
 const API_BASE = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000').replace(/\/$/, '')

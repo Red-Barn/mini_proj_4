@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { generateCover, saveCover } from '../services/coverApi'
-import './CoverGeneratePage.css'
+import '../css/CoverGeneratePage.css'
 
 export default function CoverGeneratePage() {
   const location = useLocation()

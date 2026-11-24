@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import BookCover from './BookCover';
 import FavoriteButton from './FavoriteButton';
-import { useFavorites } from './useFavorites';
+import { useFavorites } from '../services/useFavorites';
 
 // 도서 카드 1개: 표지 + 제목 + 저자. 클릭하면 상세 페이지로 이동
 function BookCard({book}) {

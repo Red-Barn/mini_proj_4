@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import FavoriteButton from './FavoriteButton';
-import { useFavorites } from './useFavorites';
-import './BookList.css';
+import { useFavorites } from '../services/useFavorites';
+import '../css/BookList.css';
 
 function formatDate(value) {
   if (!value) return '-';
