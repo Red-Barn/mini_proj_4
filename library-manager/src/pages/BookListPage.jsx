@@ -11,6 +11,16 @@ import { SORT_OPTIONS } from '../components/SortSelect'
 import { useFavorites } from '../components/useFavorites'
 
 const BASE_URL = 'http://localhost:3000/books'
+const VIEW_MODE_KEY = 'viewMode'
+
+function loadViewMode() {
+  try{
+    const saved = localStorage.getItem(VIEW_MODE_KEY)
+    return saved === 'list' ? 'list' : 'grid'
+  } catch{
+    return 'grid'
+  }
+}
 
 function compareBooks(a, b, {field, order}, isFavorite){
   if (field === 'favorite') {
@@ -31,7 +41,7 @@ function BookListPage() {
   const [total, setTotal] = useState(0)
   const [itemsPerPage, setItemsPerPage] = useState(8)
   const [sortKey, setSortKey] = useState('title')
-  const [viewMode, setViewMode] = useState('grid')
+  const [viewMode, setViewMode] = useState(loadViewMode)
   const [allBooksForFav, setAllBooksForFav] = useState([])
   const { favorites, isFavorite } = useFavorites()
   
@@ -139,6 +149,15 @@ function BookListPage() {
     setCurrentPage(1)
   }
 
+  const handleViewModeChange = (mode) => {
+    setViewMode(mode)
+    try{
+      localStorage.setItem(VIEW_MODE_KEY, mode)
+    } catch{
+
+    }
+  }
+
   // 검색 결과 필터링 및 정렬 
   const filteredSearchResults =
     sortKey === 'favorite'
@@ -173,7 +192,7 @@ function BookListPage() {
         sortKey={sortKey}
         onSortChange={handleSortChange}
         viewMode={viewMode}
-        onViewModeChange={setViewMode}
+        onViewModeChange={handleViewModeChange}
       />
 
       {displayTotal === 0 ? (
