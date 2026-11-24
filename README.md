@@ -365,10 +365,14 @@ mini_proj_4/
 
 
 ## 주요화면 스크린샷
-| 목록형 보기 페이지 | AI 표지 생성 페이지 |
+| 목록형 보기 페이지 | 카드형 보기 페이지 |
 |---|---|
-| <img src="./images/BookList.png" alt="목록형페이지 스크린샷" width="400" /> | <img src="./images/CoverGenerate.png" alt="AI 생성 페이지 스크린샷" width="400" /> |
+| <img src="./images/BookList.png" alt="목록형페이지 스크린샷" width="400" /> | <img src="./images/Main.png" alt="카드형 보기 페이지" width="400" /> |
 
 | 도서 등록 페이지 | 도서 수정 페이지 |
 |---|---|
 | <img src="./images/BookCreate.png" alt="도서 등록 페이지 스크린샷" width="400" /> | <img src="./images/BookEdit.png" alt="도서 수정 페이지 스크린샷" width="400" /> |
+
+| AI 생성 페이지 스크린샷 |
+|---|
+| <img src="./images/CoverGenerate.png" alt="AI 생성 페이지 스크린샷" width="400" /> 
