@@ -1,4 +1,4 @@
-const PAGE_SIZE_OPTIONS = [
+export const PAGE_SIZE_OPTIONS = [
   { value: 8, label: '8개씩 보기' },
   { value: 12, label: '12개씩 보기' },
   { value: 16, label: '16개씩 보기' },

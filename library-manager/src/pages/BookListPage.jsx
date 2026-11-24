@@ -8,10 +8,13 @@ import '../css/BookListPage.css'
 import { useSearchParams } from 'react-router-dom'
 import { searchBooks } from '../services/bookApi'
 import { SORT_OPTIONS } from '../components/SortSelect'
+import { PAGE_SIZE_OPTIONS } from '../components/PageSizeSelect'
 import { useFavorites } from '../services/useFavorites'
 
 const BASE_URL = 'http://localhost:3000/books'
 const VIEW_MODE_KEY = 'viewMode'
+const SORT_MODE_KEY = 'sortMode'
+const ITEM_MODE_KEY = 'itemMode'
 
 function loadViewMode() {
   try{
@@ -19,6 +22,24 @@ function loadViewMode() {
     return saved === 'list' ? 'list' : 'grid'
   } catch{
     return 'grid'
+  }
+}
+
+function loadSortKey() {
+  try{
+    const saved = localStorage.getItem(SORT_MODE_KEY)
+    return SORT_OPTIONS.some((option) => option.value === saved) ? saved : 'title'
+  } catch{
+    return 'title'
+  }
+}
+
+function loadItemsPerPage() {
+  try{
+    const saved = Number(localStorage.getItem(ITEM_MODE_KEY))
+    return PAGE_SIZE_OPTIONS.some((option) => option.value === saved) ? saved : 8
+  } catch{
+    return 8
   }
 }
 
@@ -39,8 +60,8 @@ function BookListPage() {
   const [error, setError] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [total, setTotal] = useState(0)
-  const [itemsPerPage, setItemsPerPage] = useState(8)
-  const [sortKey, setSortKey] = useState('title')
+  const [itemsPerPage, setItemsPerPage] = useState(loadItemsPerPage)
+  const [sortKey, setSortKey] = useState(loadSortKey)
   const [viewMode, setViewMode] = useState(loadViewMode)
   const [allBooksForFav, setAllBooksForFav] = useState([])
   const { favorites, isFavorite } = useFavorites()
@@ -142,20 +163,24 @@ function BookListPage() {
   const handleItemsPerPageChange = (size) => {
     setItemsPerPage(size)
     setCurrentPage(1)
+    try{
+      localStorage.setItem(ITEM_MODE_KEY, size)
+    } catch{}
   }
 
   const handleSortChange = (key) => {
     setSortKey(key)
     setCurrentPage(1)
+    try{
+      localStorage.setItem(SORT_MODE_KEY, key)
+    } catch{}
   }
 
   const handleViewModeChange = (mode) => {
     setViewMode(mode)
     try{
       localStorage.setItem(VIEW_MODE_KEY, mode)
-    } catch{
-
-    }
+    } catch{}
   }
 
   // 검색 결과 필터링 및 정렬 
